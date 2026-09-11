@@ -32,9 +32,4 @@ export class CreateSolicitudeDto {
   @IsString() @IsNotEmpty()
   fecha: string
 }
-src/solicitudes/dto/update-solicitude.dto.ts
-import { PartialType } from '@nestjs/swagger'
-import { CreateSolicitudeDto } from './create-solicitude.dto'
-
-export class UpdateSolicituderDto extends PartialType(CreateSolicitudeDto) {}
 
