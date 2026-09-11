@@ -3,10 +3,11 @@
 
 
 #Requisitos
-#Instalar node npm install
-#Instalar Nest npm i -g @nestjs/cli
-
-
+#Instalar node: npm install
+#Instalar Nest: npm i -g @nestjs/cli
+#typeorm:       npm i @nestjs/typeorm typeorm mysql2
+#swagger:       npm i @nestjs/swagger swagger-ui-express
+#clas-validator:npm i class-validator class-transformer
 
 
 

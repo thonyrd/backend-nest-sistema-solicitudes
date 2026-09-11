@@ -1,26 +1,48 @@
-import { Injectable } from '@nestjs/common';
-import { CreateSolicitudeDto } from './dto/create-solicitude.dto';
-import { UpdateSolicitudeDto } from './dto/update-solicitude.dto';
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { InjectRepository } from '@nestjs/typeorm'
+import { Repository } from 'typeorm'
+import { CreateSolicitudeDto } from './dto/create-solicitude.dto'
+import { UpdateSolicitudeDto } from './dto/update-solicitude.dto'
+import { Solicitude } from './entities/solicitude.entity'
 
 @Injectable()
 export class SolicitudesService {
-  create(createSolicitudeDto: CreateSolicitudeDto) {
-    return 'This action adds a new solicitude';
-  }
+  constructor(
+    @InjectRepository(Solicitude)
+    private repo: Repository<Solicitude>,
+  ) {}
 
   findAll() {
-    return `This action returns all solicitudes`;
+    return this.repo.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} solicitude`;
+  async findOne(id: number) {
+    const found = await this.repo.findOne({ where: { id } })
+    if (!found) throw new NotFoundException({ error: 'solicitude no encontrado' })
+    return found
   }
 
-  update(id: number, updateSolicitudeDto: UpdateSolicitudeDto) {
-    return `This action updates a #${id} solicitude`;
+  create(dto: CreateSolicitudeDto) {
+    const ent = this.repo.create(dto)
+    return this.repo.save(ent)
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} solicitude`;
+  async update(id: number, dto: UpdateSolicitudeDto) {
+    const prev = await this.findOne(id)
+    Object.assign(prev, dto)
+    return this.repo.save(prev)
+  }
+
+  async remove(id: number) {
+    const prev = await this.findOne(id)
+    await this.repo.remove(prev)
+    return { ok: true }
+  }
+
+  async buscar(categoria?: string, prioridad?: string) {
+    const qb = this.repo.createQueryBuilder('e')
+    if (categoria) qb.andWhere('e.categoria = :categoria', { categoria })
+    if (prioridad) qb.andWhere('e.prioridad = :prioridad', { prioridad })
+    return qb.getMany()
   }
 }
