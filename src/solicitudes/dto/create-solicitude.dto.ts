@@ -1,10 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { IsIn, IsNotEmpty, IsString, MinLength } from 'class-validator'
+import { IsDateString, IsIn, IsNotEmpty, IsString, MinLength } from 'class-validator'
 
 export const categoria = ['Hardware','Software','Redes','Seguridad','Soporte Usuario'] as const
 export type categoria = typeof categoria[number]
 
-export const prioridad = ['Baja','Media','Alta'] as const
+export const prioridad = ['Baja','Media','Alta','Crítica'] as const
 export type prioridad = typeof prioridad[number]
 
 export class CreateSolicitudeDto {
@@ -14,13 +14,13 @@ export class CreateSolicitudeDto {
 
   @ApiProperty()
   @IsString() @IsNotEmpty()
-  Cliente: string
+  cliente: string
 
   @ApiProperty({ enum: categoria })
   @IsIn(categoria as unknown as string[])
   categoria: categoria
 
-@ApiProperty({ enum: prioridad })
+  @ApiProperty({ enum: prioridad })
   @IsIn(prioridad as unknown as string[])
   prioridad: prioridad
 
@@ -29,7 +29,7 @@ export class CreateSolicitudeDto {
   descripcion: string
 
   @ApiProperty()
-  @IsString() @IsNotEmpty()
-  fecha: string
+  @IsDateString({ strict: true })
+  fechaSolicitud: string
 }
 

@@ -13,7 +13,7 @@ async function bootstrap() {
   }))
 
   const config = new DocumentBuilder()
-    .setTitle('API Emprendedores Ñuble')
+    .setTitle('Sistema de Solicitudes')
     .setDescription('CRUD + búsqueda compatible con frontend Vue')
     .setVersion('1.0')
     .build()

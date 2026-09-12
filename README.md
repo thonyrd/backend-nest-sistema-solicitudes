@@ -3,13 +3,36 @@
 
 
 #Requisitos
-#Instalar node: npm install
-#Instalar Nest: npm i -g @nestjs/cli
-#typeorm:       npm i @nestjs/typeorm typeorm mysql2
-#swagger:       npm i @nestjs/swagger swagger-ui-express
-#clas-validator:npm i class-validator class-transformer
+#Instalar node:   Desde pagina oficial
+#Instalar Nest:   npm i -g @nestjs/cli
+#typeorm:         npm i @nestjs/typeorm typeorm mysql2
+#swagger:         npm i @nestjs/swagger swagger-ui-express
+#clas-validator:  npm i class-validator class-transformer
 
 
+
+
+#Base de datos:
+
+#ejecuta base de datos :  npx ts-node seed.ts
+
+CREATE DATABASE IF NOT EXISTS sistema_solicitudes
+  CHARACTER SET utf8mb4
+  COLLATE utf8mb4_unicode_ci;
+
+USE sistema_solicitudes;
+
+CREATE TABLE IF NOT EXISTS solicitude (
+  id INT NOT NULL AUTO_INCREMENT,
+  titulo VARCHAR(255) NOT NULL,
+  cliente VARCHAR(255) NOT NULL,
+  categoria VARCHAR(255) NOT NULL,
+  prioridad VARCHAR(255) NOT NULL,
+  estado VARCHAR(255) NOT NULL DEFAULT 'Pendiente',
+  descripcion TEXT NOT NULL,
+  fechaSolicitud DATETIME NOT NULL,
+  PRIMARY KEY (id)
+);
 
 
 

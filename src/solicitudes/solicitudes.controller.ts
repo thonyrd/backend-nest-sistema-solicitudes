@@ -1,34 +1,42 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete, Put, Query, ParseIntPipe } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 import { SolicitudesService } from './solicitudes.service';
 import { CreateSolicitudeDto } from './dto/create-solicitude.dto';
 import { UpdateSolicitudeDto } from './dto/update-solicitude.dto';
 
+
+@ApiTags('solicitudes')
 @Controller('solicitudes')
 export class SolicitudesController {
-  constructor(private readonly solicitudesService: SolicitudesService) {}
-
-  @Post()
-  create(@Body() createSolicitudeDto: CreateSolicitudeDto) {
-    return this.solicitudesService.create(createSolicitudeDto);
-  }
+  constructor(private readonly service: SolicitudesService) {}
 
   @Get()
   findAll() {
-    return this.solicitudesService.findAll();
+    return this.service.findAll()
+  }
+
+  @Get('buscar')
+  buscar(@Query('categoria') categoria?: string, @Query('prioridad') prioridad?: string) {
+    return this.service.buscar(categoria, prioridad)
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.solicitudesService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.service.findOne(id)
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSolicitudeDto: UpdateSolicitudeDto) {
-    return this.solicitudesService.update(+id, updateSolicitudeDto);
+  @Post()
+  create(@Body() dto: CreateSolicitudeDto) {
+    return this.service.create(dto)
+  }
+
+  @Put(':id')
+  update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateSolicitudeDto) {
+    return this.service.update(id, dto)
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.solicitudesService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.service.remove(id)
   }
 }
