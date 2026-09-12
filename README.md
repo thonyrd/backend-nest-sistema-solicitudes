@@ -1,16 +1,32 @@
-#Anthony Rebolledo Perez
-#Sistema de Gestion de Solicitudes para una empresa de soporte de TI con conexion a una base de datos 
+# Anthony Rebolledo Perez
+#Sistema de Gestion de Solicitudes para una empresa de soporte de TI con conexion a una base de datos con desarrollo con NestJS
 
 
-#Requisitos
+# Requisitos
 #Instalar node:   Desde pagina oficial
+#npm:             npm install
 #Instalar Nest:   npm i -g @nestjs/cli
 #typeorm:         npm i @nestjs/typeorm typeorm mysql2
 #swagger:         npm i @nestjs/swagger swagger-ui-express
 #clas-validator:  npm i class-validator class-transformer
 
+# Endpoint:
+GET	/solicitudes	Listar todas las solicitudes
+GET	/solicitudes/buscar	Buscar por estado, prioridad y/o categoría
+GET	/solicitudes/:id	Consultar una solicitud por ID
+POST	/solicitudes	Registrar una nueva solicitud
+PUT	/solicitudes/:id	Actualizar una solicitud existente
+DELETE	/solicitudes/:id	Eliminar una solicitud según las reglas del caso
 
 
+
+# Ejecucion: npn run install
+
+# Etapas:
+# Etapa N°1; Creacion de la estructura
+# Etapa N°2: ingreso de las Entity, TypeORM + MySQL, variables de entorno,DTO y validaciones
+# Etapa N°3: CRUD, búsqueda, manejo de errores y reglas de negocio.
+# Etapa N°4: Swagger, pruebas de endpoints, revisión técnica y preparación de entrega.
 
 #Base de datos:
 
